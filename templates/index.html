@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gold Price Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        canvas { width: 100%; height: 400px; }
+        #dashboard { display: flex; flex-direction: column; align-items: center; }
+        .chart-container { margin: 20px; }
+    </style>
+</head>
+<body>
+    <div id="dashboard">
+        <h1>Gold Price Dashboard</h1>
+        <div class="chart-container">
+            <canvas id="realTimeChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <canvas id="historicalChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <canvas id="predictionChart"></canvas>
+        </div>
+    </div>
+    <script>
+        const ctxRealTime = document.getElementById('realTimeChart').getContext('2d');
+        const ctxHistorical = document.getElementById('historicalChart').getContext('2d');
+        const ctxPrediction = document.getElementById('predictionChart').getContext('2d');
+
+        // Placeholder data
+        const realTimeData = [1800, 1805, 1810, 1808, 1812]; // Example prices
+        const historicalData = { labels: ['2026-03-01', '2026-03-02', '2026-03-03', '2026-03-04', '2026-03-05'], datasets: [{ label: 'Gold Price', data: [1790, 1800, 1820, 1810, 1850], borderColor: 'gold', fill: false}] };
+        const predictionData = { labels: ['2026-03-16', '2026-03-17', '2026-03-18', '2026-03-19', '2026-03-20'], datasets: [{ label: 'Predicted Gold Price', data: [1815, 1822, 1818, 1825, 1830], borderColor: 'green', fill: false}] };
+
+        const realTimeChart = new Chart(ctxRealTime, { type: 'line', data: { labels: Array.from({length: realTimeData.length}, (v, k) => k + 1), datasets: [{ label: 'Real-time Gold Price', data: realTimeData, borderColor: 'rgba(255, 206, 86, 1)', borderWidth: 2 }] }, options: { scales: { y: { beginAtZero: true } } } });
+
+        const historicalChart = new Chart(ctxHistorical, { type: 'line', data: historicalData, options: { scales: { y: { beginAtZero: true } } } });
+
+        const predictionChart = new Chart(ctxPrediction, { type: 'line', data: predictionData, options: { scales: { y: { beginAtZero: true } } } });
+    </script>
+</body>
+</html>
